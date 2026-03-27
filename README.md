@@ -1,12 +1,13 @@
 # Guida generale per l'esame di laboratorio di IoT 2024 del corso di ITID
 
-*“Se la vostra raspberry è stata toccata da Filippo di recente allora è sicuramente tutto aggiornato e non dovete fare nulla perché lui è malato e deve avere tutto all’ultima versione” - Filippo*
+_“Se la vostra raspberry è stata toccata da Filippo di recente allora è sicuramente tutto aggiornato e non dovete fare nulla perché lui è malato e deve avere tutto all’ultima versione”_ - Filippo
 
-# DISCLAMIER
- In questo brach viene trattata la libreria GPIO Zero perchè molto più semplice e compatibile con la raspberry e per avere una visione completa di tutto il necessario. Solo fattoria.py è stato modificato per l'uso di GPIO Zero perchè integra una coda non bloccante e una serie di funzioni di utilità per rendere la programmazione molto più veloce.
+# DISCLAIMER
 
+In questo branch viene trattata la libreria GPIO Zero perché molto più semplice e compatibile con la raspberry e per avere una visione completa di tutto il necessario. Solo fattoria.py è stato modificato per l'uso di GPIO Zero perché integra una coda non bloccante e una serie di funzioni di utilità per rendere la programmazione molto più veloce.
 
 ## Table of contents
+
 - [Installazione python automatica](#Installazione-python-automatica)
 - [Collegamento SSH con MobaXterm](#collegamento-ssh-con-mobaxterm)
 - [Collegamento SSH con NodeRED](#collegamento-ssh-con-broker-elux-su-nodered)
@@ -17,127 +18,163 @@
 - [Collegamenti esterni](#collegamenti-esterni)
 
 ## Installazione python AUTOMATICA
-Installazione python e librerie automatica (evitare se ti chiami umberto)
 
-Trascinare backup.sh all'interno della raspberry e spostarsi con cd nella cartella con questo file.
+Installazione python e librerie automatica tramite script.
 
-rendere lo script **backup.sh** eseguibile:
+Trascinare install.sh all'interno della raspberry e spostarsi con cd nella cartella con questo file.
+
+Rendere lo script **install.sh** eseguibile:
+
 ```bash
-chmod +x backup.sh
+chmod +x install.sh
 ```
 
 eseguirlo:
+
 ```bash
-./backup.sh
+./install.sh
 ```
+
 Automaticamente verrà predisposta la raspberry all'uso funzionale e corretto per l'esame.
 
 ## Collegamento SSH con MobaXterm
+
 1. Creare una nuova sessione SSH
 2. Inserire come UID:
-   ```bash
-    pi
-   ```
+    ```bash
+     pi
+    ```
 3. Inserire come PSWD:
-   ```bash
-    raspberry
-   ```
-**ATTENZIONE:** La password non viene visualizzata a schermo.
+    ```bash
+     raspberry
+    ```
+    **ATTENZIONE:** La password non viene visualizzata a schermo.
 
 ## Collegamento SSH con broker ELUX su NodeRED
 
 ### Connection
-Server: 
+
+Server:
+
 ```bash
 lab-elux.unibs.it
 ```
-Porta: 
+
+Porta:
+
 ```bash
 50009
 ```
+
 ### TLS configuration
+
 Caricare il certificato come mostrato in figura:
 
 ![ProprietàTLS](https://github.com/scrapanzano/IoT/blob/master/Images/PropietaTLS.png)
 
 ### Security
+
 UID:
+
 ```bash
 itidiot
 ```
-PSWD: 
+
+PSWD:
+
 ```bash
 ITid24!
 ```
+
 La schermata principale sarà così a questo punto:
 
 ![ProprietàGenerali](https://github.com/scrapanzano/IoT/blob/master/Images/PropietaGenerali.png)
 
-
 ## Set up della Raspberry
-La Raspberry dovrebbe essere già munita di python al suo interno. 
+
+La Raspberry dovrebbe essere già munita di python al suo interno.
 Per verificarlo:
+
 ```bash
 python3 -V
 ```
+
 In caso contrario è possibile installarlo, come mostrato [qui](https://projects.raspberrypi.org/en/projects/generic-python-install-python3), eseguendo i seguenti comandi:
+
 ```bash
 sudo update
 ```
+
 ```bash
 sudo apt install python3 idle3
 ```
+
 La Raspberry potrebbe non avere installato pip.
 Per verificarlo:
+
 ```bash
 pip --version
 ```
+
 In caso contrario è possibile installarlo, come mostrato [qui](https://pimylifeup.com/raspberry-pi-pip/), eseguendo i seguenti comandi:
+
 ```bash
 sudo update
 ```
+
 ```bash
 sudo upgrade
 ```
+
 ```bash
 sudo apt install python3-pip
 ```
+
 **ATTENZIONE:** sudo update e sudo upgrade potrebbero richiedere un po' di tempo per terminare le loro procedure.
 
+Per poter svolgere l'esame sono necessarie due librerie: [GPIO Zero](https://gpiozero.readthedocs.io/en/latest/index.html) e [paho-mqtt](https://pypi.org/project/paho-mqtt/), per verificare se sono già installate:
 
-Per poter svolgere l'esame sono necessarie due librerie: [GPIO Zero](https://gpiozero.readthedocs.io/en/latest/index.html) e [paho-mqtt](https://pypi.org/project/paho-mqtt/), per verificare se sono già installate: 
 ```bash
 pip list
 ```
+
 Altrimenti:
+
 ```bash
 pip install gpiozero
 ```
+
 ```bash
 pip install paho-mqtt
 ```
 
-Per leggere la fotoresistenza è abbastanza un casino e non sono sicuro possa farsi con python. 
+Per leggere la fotoresistenza è abbastanza un casino e non sono sicuro possa farsi con python.
 Per abilitare modulo I2C [Solo per veri nerd](http://www.emcu.it/RaspBerryPi/RaspBerryPi.html#Abilitare%20I2C%20bus)
 Testare i pin 3 e 5.
 
 ## Eseguire un programma su Raspberry
+
 1. Trascinare il programma all'interno della cartella in MobaXterm
 2. Verificare di trovarsi nella stessa cartella dello script:
    Da linea di comando eseguire:
-   ```bash
-    dir
-   ```
-   Se vi trovate nella stessa cartella dello script dovreste vederlo elencato. Altrimenti bisogna spostarsi nella cartella.
 
-   Da linea di comando eseguire:
-   ```bash
-    cd percorso/del/file
-   ```
-4. A questo punto si può eseguire il programma con:
-   ```bash
-    python3 nomescript.py
-   ```   
+    ```bash
+     dir
+    ```
+
+    Se vi trovate nella stessa cartella dello script dovreste vederlo elencato. Altrimenti bisogna spostarsi nella cartella.
+
+    Da linea di comando eseguire:
+
+    ```bash
+     cd percorso/del/file
+    ```
+
+3. A questo punto si può eseguire il programma con:
+    ```bash
+     python3 nomescript.py
+    ```
+
 ## Documentazione utile
 
 [Qui](https://sourceforge.net/p/raspberry-gpio-python/wiki/Examples/) potete trovare una serie di esempi per configurare GPIO all'interno di Visual Studio.
@@ -149,8 +186,9 @@ Inoltre potrebbe essere comodo avere sotto mano il [getting-started](https://git
 ## File in questa repository
 
 - [Certificato](https://github.com/scrapanzano/IoT/blob/master/intermediate_ca.pem) per stabilire la sessione SSH con il laboratorio
-  
+
 **NOTA:** il certificato deve essere all'interno della stessa cartella dello script python nella Raspberry
+
 - [Template](https://github.com/scrapanzano/IoT/blob/master/ScriptsDLFC/template.py) da poter riempire
 - [Esempio](https://github.com/scrapanzano/IoT/blob/master/ScriptsDLFC/supertoy.py) di risoluzione di un tema esame
 - [Esempio](https://github.com/scrapanzano/IoT/blob/master/ScriptsDLFC/fattoria.py) di un programma che utilizza una coda non bloccante
@@ -159,13 +197,13 @@ Inoltre potrebbe essere comodo avere sotto mano il [getting-started](https://git
 ## Installazione automatica python e librerie
 
 rendere lo script **install.sh** eseguibile:
+
 ```bash
 chmod +x install.sh
 ```
 
 eseguirlo:
+
 ```bash
 ./install.sh
 ```
-
-*Nota: Questa repository è fornito così com'è, senza garanzie di alcun tipo.L'utente è l'unico responsabile dell'uso di questo e dell'eventuale danneggiamento del sistema o dei dati che potrebbe causare. L'autore non si assume alcuna responsabilità per qualsiasi problema derivante dall'uso di questo. Si prega di utilizzare con cautela e sotto la propria responsabilità.*

